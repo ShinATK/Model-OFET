@@ -32,23 +32,18 @@ def mobility_func(p, E_eas, sigma_up):
 
 	return mobility_func_density(p, sigma_up)*mobility_func_field(E_eas, sigma_up)
 
-for x in X:
+for y in Y:
 	result=0
-	for y in Y:
+	for x in X:
 		result+=e*mobility_func(nmatrix[x, y], 2, 2)*nmatrix[x, y]
 	G.append(result)
 # plt.plot(conduct)
 # plt.show()
 
-Vsd=np.linspace(0, -120, 1000)
+Vsd=np.arange(0, -120.1, -0.1)
 L=3e-4
 W=3e-2
 R=0
 Isd=[]
 for v in Vsd:
-	for x in X:
-		R=R+1/(W*G[x])
-	Isd.append(-v/R)
-plt.axes(yscale='log')
-plt.plot(Vsd, Isd)
-plt.show()
+	
