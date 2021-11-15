@@ -20,7 +20,7 @@ def mobility_func_field(E_eas, sigma_up):
 
 def mobility_func(p, E_eas, sigma_up):
 
-	return mobility_func_density(p, sigma_up)*mobility_func_field(E_eas, sigma_up)
+    return mobility_func_density(p, sigma_up)*mobility_func_field(E_eas, sigma_up)
 
 # p_density = np.linspace(1e21, 1e25, 10000)
 p_density=1e22
