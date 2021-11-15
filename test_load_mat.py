@@ -4,12 +4,13 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import copy
 
-annots=  loadmat('20nm-120Vn.mat')
+annots=  loadmat('./Matrix/20nm-50Vn.mat')
 # print(annots.keys())
 nmatrix = annots['nmatrix']
 
-X = np.linspace(0, -120, 1201)
-Y = np.linspace(0, 1000, 1001)
+# X = np.linspace(0, -50, 501)
+X = np.arange(0, -50.1, -0.1)
+Y = np.arange(0, 1001, 1)
 
 fig,ax = plt.subplots()
 

@@ -13,7 +13,7 @@ kT=0.0258/e
 C1=1.8e-9
 C2=0.42
 
-annots=loadmat('20nm-120Vn')
+annots=loadmat('./Matrix/20nm-120Vn')
 nmatrix=annots['nmatrix']
 
 X=np.arange(0, 1001, 1)
@@ -46,4 +46,5 @@ W=3e-2
 R=0
 Isd=[]
 for v in Vsd:
+	
 	

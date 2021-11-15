@@ -20,16 +20,16 @@ mobility_list = []
 sigma_up = [2,3,4,5,6]
 
 plt.subplot()
+plt.axes(xscale='log',yscale='log')
 plt.xlim([1e21, 1e25])
 plt.ylim([1e-16, 1e-10])
-plt.axes(xscale='log',yscale='log')
 plt.xlabel('Carrier Density m-3', fontsize=14)
 plt.ylabel('Mobility cm3/(V·s)', fontsize=14)
 
 
 for each in sigma_up:
     mobility_list = mobility_func_density(p_density, each)
-    np.savetxt(f'mobility_carrier_density sigma_up={each}.txt', mobility_list)
+    # np.savetxt(f'mobility_carrier_density sigma_up={each}.txt', mobility_list)
     plt.plot(p_density, mobility_list, 'o', markersize=3,label=f'σ/kT={each}')
 
 plt.legend()

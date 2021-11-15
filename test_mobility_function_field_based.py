@@ -27,7 +27,7 @@ plt.ylabel('Mobility cm3/(V·s)', fontsize=14)
 
 for each in sigma_up:
     mobility_list = mobility_func_field(E_eas, each)
-    np.savetxt(f'mobility_filed_dependent sigma_up={each}.txt', mobility_list)
+    # np.savetxt(f'mobility_filed_dependent sigma_up={each}.txt', mobility_list)
     plt.plot(E_eas, mobility_list, 'o', markersize=3, label=f'σ/kT={each}')   
 plt.legend()
 plt.show()
