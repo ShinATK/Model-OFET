@@ -13,11 +13,11 @@ kT=0.0258/e
 C1=1.8e-9
 C2=0.42
 
-annots=loadmat('./Matrix/20nm-120Vn')
+annots=loadmat('./Matrix/20nm-50Vn')
 nmatrix=annots['nmatrix']
 
 X=np.arange(0, 1001, 1)
-Y=np.arange(0, 1201, 1)
+Y=np.arange(0, 501, 1)
 
 G=[]
 
@@ -32,19 +32,5 @@ def mobility_func(p, E_eas, sigma_up):
 
 	return mobility_func_density(p, sigma_up)*mobility_func_field(E_eas, sigma_up)
 
-for y in Y:
-	result=0
-	for x in X:
-		result+=e*mobility_func(nmatrix[x, y], 2, 2)*nmatrix[x, y]
-	G.append(result)
-# plt.plot(conduct)
-# plt.show()
-
-Vsd=np.arange(0, -120.1, -0.1)
-L=3e-4
-W=3e-2
-R=0
-Isd=[]
-for v in Vsd:
 	
 	
