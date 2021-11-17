@@ -34,23 +34,18 @@ Va = 0 # 阈值电压
 # Vg_max = -0.5
 # Vg_min = -40
 # delta_Vg = 0.5
-Vg = np.arange(-40, 0, 0.5)
+# Vg = np.arange(-40, -20, 0.5)
+Vg = 0
 
+V_temp = V[0, :]
 # 假设器件0V即可关闭（即无掺杂）
-def solve_VN(Vg):
-	delta_v = 1 # 与泊松方程计算得到的矩阵横向电压步长相同
+delta_v = 1 # 与泊松方程计算得到的矩阵横向电压步长相同
+for i in range(N+1):
+	b = math.floor((Vg-V[0, i])/delta_v)
+	V[:, i] = Vmatrix[:, b] - ((Vg-V[0, i])/delta_v-b)*(Vmatrix[:, b+1]-Vmatrix[:, b])
+	n[:, i] = nmatrix[:, b] - ((Vg-V[0, i])/delta_v-b)*(nmatrix[:, b+1]-nmatrix[:, b])
 
-	for i in range(N+1):
-		b = math.floor((Vg-V[0, i])/delta_v)
-		V[:, i] = Vmatrix[:, b+1] + ((Vg-V[0, i])/delta_v-b-1)*(Vmatrix[:, b+2]-Vmatrix[:, b+1])
-		n[:, i] = nmatrix[:, b+1] + ((Vg-V[0, i])/delta_v-b-1)*(nmatrix[:, b+2]-nmatrix[:, b+1])
-	return V, n
-
-V, n = solve_VN(-40)
 
 fig,ax = plt.subplots()
-# ax.contourf(n)
-
-plt.plot(n[:, 1999])
-
+ax.contourf(n)
 plt.show()
