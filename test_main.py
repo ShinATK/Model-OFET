@@ -35,7 +35,7 @@ Va = 0 # 阈值电压
 # Vg_min = -40
 # delta_Vg = 0.5
 # Vg = np.arange(-40, -20, 0.5)
-Vg = 0
+Vg = -40
 
 V_temp = V[0, :]
 # 假设器件0V即可关闭（即无掺杂）
@@ -44,7 +44,6 @@ for i in range(N+1):
 	b = math.floor((Vg-V[0, i])/delta_v)
 	V[:, i] = Vmatrix[:, b] - ((Vg-V[0, i])/delta_v-b)*(Vmatrix[:, b+1]-Vmatrix[:, b])
 	n[:, i] = nmatrix[:, b] - ((Vg-V[0, i])/delta_v-b)*(nmatrix[:, b+1]-nmatrix[:, b])
-
 
 fig,ax = plt.subplots()
 ax.contourf(n)
