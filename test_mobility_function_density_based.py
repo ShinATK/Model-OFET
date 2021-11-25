@@ -34,4 +34,5 @@ for each in sigma:
     plt.plot(p_density, mobility_list, 'o-', markersize=3,label=f'σ={each}meV')
 
 plt.legend(loc='lower right')
+plt.savefig('./mobility density based.png', dpi=720)
 plt.show()
