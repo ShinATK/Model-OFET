@@ -29,8 +29,9 @@ def mobility_func_field(E_eas, sigma_up):
     return np.exp(0.44*(sigma_up**1.5 -2.2)*((1+0.8*(E_eas)**2)**0.5-1))
 
 def mobility_func(p, E_eas, sigma_up):
-
 	return mobility_func_density(p, sigma_up)*mobility_func_field(E_eas, sigma_up)
+
+
 
 	
 	
