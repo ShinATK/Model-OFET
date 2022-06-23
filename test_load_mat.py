@@ -35,9 +35,10 @@ def load_mat_data(path=path_set):
         annots = loadmat(f'./Matrix/{each_name}')
         Imatrix = annots['I'][0, :]
         I[each_name[:-4]] = Imatrix
+        text_save(f'{each_name}.txt', I[each_name[:-4]])
 
-        plt.plot(Vg, Imatrix, label=each_name[:-4])
-
+        plt.plot(Vg, Imatrix*1e6, label=each_name[:-4])
+    plt.axvline(x=-20, ls='--', c='red')
     font = {'family': 'Times New Roman',
             'weight': 'normal',
             'style': 'italic',
@@ -76,6 +77,17 @@ def cal_deriv(x, y):  # x, y的类型均为列表
 
     return deriv  # 返回存储一阶导数结果的列表
 
+def text_save(filename, data):  # filename为写入CSV文件的路径，data为要写入数据列表.
+    file = open(f'./Matrix/{filename}', 'a')
+    for i in range(len(data)):
+        s = str(data[i]).replace('[', '').replace(']', '')  # 去除[],这两行按数据不同，可以选择
+        s = s.replace('{', '').replace('}', '')
+        s = s.replace("'", '').replace(',', '') + '\n'  # 去除单引号，逗号，每行末尾追加换行符
+        file.write(s)
+    # file.write(data+'\n')
+    file.close()
+    print(filename+"保存文件成功")
+
 if __name__ == '__main__':
 
 
@@ -113,13 +125,13 @@ if __name__ == '__main__':
         A = abs(L / (W * (d - i * delta_d) * e))
         A_list.append(A)
 
-        k[each_name[:-4]] = abs(cal_deriv(I[each_name[:-4]], Vg)[0])
+        k[each_name[:-4]] = abs(cal_deriv(Vg, I[each_name[:-4]]*1e6)[10])
         k_list.append(float(k[each_name[:-4]]))
 
         mobility[each_name[:-4]] = B * k[each_name[:-4]]
         mobility_list.append(mobility[each_name[:-4]])
 
-        G[each_name[:-4]] = abs(I[each_name[:-4]] / Vsd)
+        G[each_name[:-4]] = abs(I[each_name[:-4]][10]*1e6 / Vsd)
         G_list.append(G[each_name[:-4]])
 
         n[each_name[:-4]] = A * G[each_name[:-4]] / mobility[each_name[:-4]]
@@ -144,5 +156,10 @@ if __name__ == '__main__':
     plt.legend()
     plt.tight_layout()
     plt.show()
+
+    text_save('断层迁移率计算 电导.txt', G_list)
+    text_save('断层迁移率计算 迁移率.txt', mobility_list)
+    text_save('断层迁移率计算 电荷密度.txt', n_list)
+    text_save('断层迁移率计算 总电荷量.txt', N_list)
 
 
